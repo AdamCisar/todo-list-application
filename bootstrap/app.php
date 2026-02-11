@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Middlewares\EnsureJsonRequestMiddleware;
+use App\Http\Responses\ApiResponse;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,8 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+         $middleware->append(EnsureJsonRequestMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(fn (AuthenticationException $e, Request $request) => 
+            ApiResponse::error(
+                'Unauthenticated. Please provide a valid access token.', 
+                null, 
+                Response::HTTP_UNAUTHORIZED
+            ));
     })->create();
