@@ -48,6 +48,17 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - 8082:8080
+        networks:
+            - sail 
+        environment:
+            ADMINER_DESIGN: 'pepa-linha'
+
 networks:
     sail:
         driver: bridge
