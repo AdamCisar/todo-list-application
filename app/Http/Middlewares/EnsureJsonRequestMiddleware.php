@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middlewares;
 
+use App\Http\Responses\ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +19,11 @@ class EnsureJsonRequestMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->expectsJson()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid request format. JSON expected. Please set the "Accept" header to "application/json".',
-                'data' => null,
-            ], 403);
+            return ApiResponse::error(
+                'Invalid request format. JSON expected. Please set the "Accept" header to "application/json".', 
+                null, 
+                Response::HTTP_FORBIDDEN
+            );
         }
 
         return $next($request);
