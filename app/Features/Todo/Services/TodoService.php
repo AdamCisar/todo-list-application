@@ -6,6 +6,7 @@ namespace App\Features\Todo\Services;
 
 use App\Features\Todo\Exceptions\TodoCreateException;
 use App\Features\Todo\Exceptions\TodoNotFoundException;
+use App\Features\Todo\Exceptions\TodoUpdateException;
 use App\Features\Todo\Models\Todo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\QueryException;
@@ -36,6 +37,23 @@ class TodoService
             throw new TodoNotFoundException();
         }
         
+        return $todo;
+    }
+
+    public function update(int $id, array $data): Todo 
+    {
+        if (empty($data)) {
+            throw new TodoUpdateException('No data provided for update.');
+        }
+        
+        $todo = $this->get($id);
+
+        $isUpdated = $todo->update($data);
+
+        if (!$isUpdated) {
+            throw new TodoUpdateException();
+        }
+
         return $todo;
     }
 }

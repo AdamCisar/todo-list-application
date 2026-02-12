@@ -28,6 +28,11 @@ class TodoRequest extends FormRequest
                 'description' => ['sometimes', 'string'],
                 'completed' => ['sometimes', 'boolean'],
             ],
+            Request::METHOD_PUT => [
+                'title' => ['sometimes', 'string', 'max:255'],
+                'description' => ['sometimes', 'string'],
+                'completed' => ['sometimes', 'boolean'],
+            ],
             default => [],
         };
     }
