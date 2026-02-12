@@ -69,4 +69,11 @@ class TodoController extends Controller
 
         return ApiResponse::success('Todo deleted successfully.', null, Response::HTTP_OK);
     }
+
+    public function toggle(int $id, TodoRequest $request): JsonResponse
+    {
+        $todo = $this->service->update($id, $request->validated());
+
+        return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo toggled successfully.');
+    }
 }

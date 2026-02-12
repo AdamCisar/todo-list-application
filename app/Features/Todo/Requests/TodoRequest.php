@@ -33,6 +33,9 @@ class TodoRequest extends FormRequest
                 'description' => ['sometimes', 'string'],
                 'completed' => ['sometimes', 'boolean'],
             ],
+            Request::METHOD_PATCH => [
+                'completed' => ['required', 'boolean'],
+            ],
             default => [],
         };
     }

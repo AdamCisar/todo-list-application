@@ -29,6 +29,11 @@ class Todo extends Model
         'completed' => 'boolean',
     ];
 
+    protected $attributes = [
+        'description' => '',
+        'completed' => false,
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

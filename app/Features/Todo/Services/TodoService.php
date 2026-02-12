@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Features\Todo\Services;
 
@@ -26,27 +24,26 @@ class TodoService
     }
 
     public function getAll(int $perPage = 5): LengthAwarePaginator
-    { 
-        return auth()->user()->todos()->latest()->paginate($perPage); 
+    {
+        return auth()->user()->todos()->latest()->paginate($perPage);
     }
 
-    public function get(int $id): Todo 
-    { 
+    public function get(int $id): Todo
+    {
         $todo = auth()->user()->todos()->find($id);
-        
+
         if (!$todo) {
             throw new TodoNotFoundException();
         }
-        
+
         return $todo;
     }
-
-    public function update(int $id, array $data): Todo 
+    public function update(int $id, array $data): Todo
     {
         if (empty($data)) {
             throw new TodoUpdateException('No data provided for update.');
         }
-        
+
         $todo = $this->get($id);
 
         $isUpdated = $todo->update($data);
@@ -58,12 +55,12 @@ class TodoService
         return $todo;
     }
 
-    public function delete(int $id): bool 
+    public function delete(int $id): bool
     {
         $todo = $this->get($id);
-        
+
         $isDeleted = $todo->delete();
-        
+
         if (!$isDeleted) {
             throw new TodoDeleteException();
         }

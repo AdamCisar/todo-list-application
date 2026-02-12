@@ -13,19 +13,18 @@ Route::fallback(function () {
     ], Response::HTTP_NOT_FOUND);
 });
 
-/**
- * AUTHENTICATION
- */
+/** AUTHENTICATION */
 Route::prefix('auth')->group(function () {
     Route::post('register', [UserAuthController::class, 'register']);
     Route::post('login', [UserAuthController::class, 'login']);
-    Route::post('logout',[UserAuthController::class,'logout'])
+    Route::post('logout', [UserAuthController::class, 'logout'])
         ->middleware('auth:sanctum');
 });
 
-/**
- * TODOS
- */
-Route::apiResource('todos', TodoController::class)
-    ->middleware('auth:sanctum')
-    ->where(['todo' => '[1-9]+']);
+/** TODOS */
+Route::middleware('auth:sanctum')
+    ->where(['todo' => '[1-9]+'])
+    ->group(function () {
+        Route::apiResource('todos', TodoController::class);
+        Route::patch('todos/{todo}/toggle', [TodoController::class, 'toggle']);
+    });
