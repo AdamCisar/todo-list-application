@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Features\Todo\Services;
 
 use App\Features\Todo\Exceptions\TodoCreateException;
+use App\Features\Todo\Exceptions\TodoDeleteException;
 use App\Features\Todo\Exceptions\TodoNotFoundException;
 use App\Features\Todo\Exceptions\TodoUpdateException;
 use App\Features\Todo\Models\Todo;
@@ -55,5 +56,18 @@ class TodoService
         }
 
         return $todo;
+    }
+
+    public function delete(int $id): bool 
+    {
+        $todo = $this->get($id);
+        
+        $isDeleted = $todo->delete();
+        
+        if (!$isDeleted) {
+            throw new TodoDeleteException();
+        }
+
+        return $isDeleted;
     }
 }

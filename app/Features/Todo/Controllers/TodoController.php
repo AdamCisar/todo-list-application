@@ -9,8 +9,9 @@ use App\Features\Todo\Requests\TodoRequest;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Features\Todo\Services\TodoService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Responses\ApiResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends Controller
 {
@@ -43,7 +44,7 @@ class TodoController extends Controller
      * This allows us to ensure that the todo exists and belongs to the authenticated user, while still adhering to the global scope defined in the model.
      * 
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $todo = $this->service->get($id);
 
@@ -53,7 +54,7 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TodoRequest $request, int $id)
+    public function update(TodoRequest $request, int $id): JsonResponse
     {
         $todo = $this->service->update($id, $request->validated());
         
@@ -63,8 +64,10 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todo $todo)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->service->delete($id);
+
+        return ApiResponse::success('Todo deleted successfully.', null, Response::HTTP_OK);
     }
 }
