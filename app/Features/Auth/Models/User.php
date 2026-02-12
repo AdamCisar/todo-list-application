@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Features\Auth\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Features\Todo\Models\Todo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,5 +50,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function todos() {
+        return $this->hasMany(Todo::class); 
     }
 }

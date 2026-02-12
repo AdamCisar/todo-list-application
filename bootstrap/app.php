@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(fn (AuthenticationException $e, Request $request) => 
             ApiResponse::error(
-                'Unauthenticated. Please provide a valid access token.', 
+                'Unauthenticated.', 
                 null, 
                 Response::HTTP_UNAUTHORIZED
             ));

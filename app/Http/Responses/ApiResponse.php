@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ApiResponse
 {
-    public static function success(string $message, ?array $data, int $status): JsonResponse
+    public static function success(string $message, ResourceCollection|array|null $data, int $status): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'message' => $message,
+            'message' => $message instanceof ResourceCollection ? $message->collection : $message,
             'data' => $data,
         ], $status);
     }

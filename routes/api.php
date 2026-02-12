@@ -1,6 +1,7 @@
 <?php
 
 use App\Features\Auth\Controllers\UserAuthController;
+use App\Features\Todo\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +14,7 @@ Route::fallback(function () {
 });
 
 /**
- * AUTHENTICATION ROUTES
+ * AUTHENTICATION
  */
 Route::prefix('auth')->group(function () {
     Route::post('register', [UserAuthController::class, 'register']);
@@ -21,3 +22,9 @@ Route::prefix('auth')->group(function () {
     Route::post('logout',[UserAuthController::class,'logout'])
         ->middleware('auth:sanctum');
 });
+
+/**
+ * TODOS
+ */
+Route::apiResource('todos', TodoController::class)
+    ->middleware('auth:sanctum');
