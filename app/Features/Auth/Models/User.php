@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Features\Auth\Models;
 
@@ -52,7 +50,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function todos() {
-        return $this->hasMany(Todo::class); 
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
     }
 }

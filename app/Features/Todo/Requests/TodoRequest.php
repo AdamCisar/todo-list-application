@@ -22,7 +22,7 @@ class TodoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return match($this->method()) {
+        return match ($this->method()) {
             Request::METHOD_POST => [
                 'title' => ['required', 'string', 'max:255'],
                 'description' => ['sometimes', 'string'],

@@ -29,7 +29,7 @@ class ResourceCollectionProvicder extends ServiceProvider
         ];
 
         foreach ($crudResponses as $type => $config) {
-            ResourceCollection::macro("with" . ucfirst($type), function (?string $message = null) use ($type, $config) {
+            ResourceCollection::macro('with' . ucfirst($type), function (?string $message = null) use ($type, $config) {
                 return $this->additional([
                     'success' => $type !== 'error',
                     'message' => $message ?? $config['message'],

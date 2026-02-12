@@ -3,9 +3,9 @@
 namespace App\Features\Todo\Exceptions;
 
 use App\Http\Responses\ApiResponse;
-use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class TodoCreateException extends Exception
 {

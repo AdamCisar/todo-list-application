@@ -2,8 +2,8 @@
 
 namespace App\Features\Todo\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Request;
 
 class TodoResourceCollection extends ResourceCollection
 {

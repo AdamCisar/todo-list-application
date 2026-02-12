@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Features\Auth\Controllers;
 
@@ -27,8 +25,8 @@ class UserAuthController extends Controller
 
         if ($validator->fails()) {
             return ApiResponse::error(
-                'Validation failed', 
-                $validator->errors()->toArray(), 
+                'Validation failed',
+                $validator->errors()->toArray(),
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
@@ -49,29 +47,29 @@ class UserAuthController extends Controller
         );
     }
 
-     public function login(Request $request): JsonResponse
-     {
+    public function login(Request $request): JsonResponse
+    {
         $userLoginData = $request->only(['email', 'password']);
 
         $validator = Validator::make($userLoginData, [
-            'email'=>'required|string|email',
-            'password'=>'required|min:8',
+            'email' => 'required|string|email',
+            'password' => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
             return ApiResponse::error(
-                'Validation failed', 
-                $validator->errors()->toArray(), 
+                'Validation failed',
+                $validator->errors()->toArray(),
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
 
-        $user = User::where('email',$userLoginData['email'])->first();
+        $user = User::where('email', $userLoginData['email'])->first();
 
-        if(!$user || !Hash::check($userLoginData['password'],$user->password)){
+        if (!$user || !Hash::check($userLoginData['password'], $user->password)) {
             return ApiResponse::error(
-                'Invalid credentials', 
-                null, 
+                'Invalid credentials',
+                null,
                 Response::HTTP_UNAUTHORIZED
             );
         }
@@ -87,6 +85,7 @@ class UserAuthController extends Controller
             Response::HTTP_OK
         );
     }
+
     public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Features\Todo\Controllers;
 
@@ -15,15 +13,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends Controller
 {
-    public function __construct(private TodoService $service) {}
+    public function __construct(
+        private TodoService $service
+    ) {}
 
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        $todos = $this->service->getAll(); 
-   
+        $todos = $this->service->getAll();
+
         return TodoResourceCollection::make($todos)->withSuccess('Todos retrieved successfully.');
     }
 
@@ -39,10 +39,9 @@ class TodoController extends Controller
 
     /**
      * Display the specified resource.
-     * 
+     *
      * Using scoped route model binding to bypass the global scope and retrieve the todo by its ID, regardless of the authenticated user.
      * This allows us to ensure that the todo exists and belongs to the authenticated user, while still adhering to the global scope defined in the model.
-     * 
      */
     public function show(int $id): JsonResponse
     {
@@ -57,7 +56,7 @@ class TodoController extends Controller
     public function update(TodoRequest $request, int $id): JsonResponse
     {
         $todo = $this->service->update($id, $request->validated());
-        
+
         return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo updated successfully.');
     }
 

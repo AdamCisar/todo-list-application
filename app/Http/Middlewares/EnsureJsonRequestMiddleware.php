@@ -1,13 +1,11 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Http\Middlewares;
 
 use App\Http\Responses\ApiResponse;
-use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Closure;
 
 class EnsureJsonRequestMiddleware
 {
@@ -20,8 +18,8 @@ class EnsureJsonRequestMiddleware
     {
         if (!$request->expectsJson()) {
             return ApiResponse::error(
-                'Invalid request format. JSON expected. Please set the "Accept" header to "application/json".', 
-                null, 
+                'Invalid request format. JSON expected. Please set the "Accept" header to "application/json".',
+                null,
                 Response::HTTP_FORBIDDEN
             );
         }
