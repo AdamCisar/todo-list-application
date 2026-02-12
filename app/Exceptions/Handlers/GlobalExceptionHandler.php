@@ -26,7 +26,7 @@ class GlobalExceptionHandler
             ],
             ValidationException::class => [
                 'Validation failed.',
-                fn($e) => $e->errors(),
+                $e->errors(),
                 Response::HTTP_UNPROCESSABLE_ENTITY,
             ],
             MethodNotAllowedHttpException::class => [
