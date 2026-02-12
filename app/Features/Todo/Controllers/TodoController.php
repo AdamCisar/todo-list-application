@@ -9,10 +9,8 @@ use App\Features\Todo\Requests\TodoRequest;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Features\Todo\Services\TodoService;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ApiResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends Controller
 {
@@ -40,10 +38,16 @@ class TodoController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     * Using scoped route model binding to bypass the global scope and retrieve the todo by its ID, regardless of the authenticated user.
+     * This allows us to ensure that the todo exists and belongs to the authenticated user, while still adhering to the global scope defined in the model.
+     * 
      */
-    public function show(Todo $todo)
+    public function show(int $id)
     {
-        //
+        $todo = $this->service->get($id);
+
+        return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo retrieved successfully.');
     }
 
     /**

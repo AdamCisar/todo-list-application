@@ -26,7 +26,6 @@ class ResourceCollectionProvicder extends ServiceProvider
             'created' => ['message' => 'Resource created', 'status' => Response::HTTP_CREATED],
             'updated' => ['message' => 'Resource updated', 'status' => Response::HTTP_OK],
             'deleted' => ['message' => 'Resource deleted', 'status' => Response::HTTP_OK],
-            'error'   => ['message' => 'An error occurred', 'status' => Response::HTTP_BAD_REQUEST],
         ];
 
         foreach ($crudResponses as $type => $config) {
