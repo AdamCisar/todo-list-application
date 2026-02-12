@@ -21,8 +21,11 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
+        $todos = $this->service->getAll(); 
+   
+        return TodoResourceCollection::make($todos)->withSuccess('Todos retrieved successfully.');
     }
 
     /**
@@ -32,11 +35,7 @@ class TodoController extends Controller
     {
         $todo = $this->service->create($request->validated());
 
-        return ApiResponse::success(
-            'Todo created successfully.', 
-            TodoResourceCollection::make(collect([$todo])), 
-            Response::HTTP_CREATED
-        );
+        return TodoResourceCollection::make(collect([$todo]))->withCreated('Todo created successfully.');
     }
 
     /**
