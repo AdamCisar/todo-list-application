@@ -28,4 +28,4 @@ Route::prefix('auth')->group(function () {
  */
 Route::apiResource('todos', TodoController::class)
     ->middleware('auth:sanctum')
-    ->where(['todo' => '[0-9]+']);
+    ->where(['todo' => '[1-9]+']);
