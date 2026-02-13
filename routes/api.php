@@ -16,7 +16,7 @@ Route::fallback(function () {
 /** AUTHENTICATION */
 Route::prefix('auth')->group(function () {
     Route::post('register', [UserAuthController::class, 'register'])->middleware('throttle:3,1');
-    Route::post('login', [UserAuthController::class, 'login'])->middleware('throttle:10,10');
+    Route::post('login', [UserAuthController::class, 'login'])->middleware('throttle:5,1');
     Route::post('logout', [UserAuthController::class, 'logout'])
         ->middleware('auth:sanctum');
 });
