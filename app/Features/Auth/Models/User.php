@@ -5,6 +5,7 @@ namespace App\Features\Auth\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Features\Todo\Models\Todo;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function todos()
     {
         return $this->hasMany(Todo::class);
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }
