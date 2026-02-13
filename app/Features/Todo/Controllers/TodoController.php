@@ -2,7 +2,6 @@
 
 namespace App\Features\Todo\Controllers;
 
-use App\Features\Todo\Models\Todo;
 use App\Features\Todo\Requests\TodoRequest;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Features\Todo\Services\TodoService;
