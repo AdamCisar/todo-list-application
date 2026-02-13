@@ -23,9 +23,14 @@ class TodoService
         return $todo;
     }
 
-    public function getAll(int $perPage = 5): LengthAwarePaginator
+    public function getAll($filters = []): LengthAwarePaginator
     {
-        return auth()->user()->todos()->latest()->paginate($perPage);
+        return auth()
+            ->user()
+            ->todos()
+            ->when($filters['status'] ?? null, fn($q, $status) => $q->where($status, true))
+            ->latest()
+            ->paginate($filters['per_page'] ?? 5);
     }
 
     public function get(int $id): Todo

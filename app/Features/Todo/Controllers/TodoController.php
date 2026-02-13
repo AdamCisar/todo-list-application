@@ -19,9 +19,9 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(TodoRequest $request): JsonResponse
     {
-        $todos = $this->service->getAll();
+        $todos = $this->service->getAll($request->validated());
 
         return TodoResourceCollection::make($todos)->withSuccess('Todos retrieved successfully.');
     }

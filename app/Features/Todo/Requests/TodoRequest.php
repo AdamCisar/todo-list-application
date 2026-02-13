@@ -23,6 +23,10 @@ class TodoRequest extends FormRequest
     public function rules(): array
     {
         return match ($this->method()) {
+            Request::METHOD_GET => [
+                'status' => ['sometimes', 'in:completed'],
+                'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
+            ],
             Request::METHOD_POST => [
                 'title' => ['required', 'string', 'max:255'],
                 'description' => ['sometimes', 'string'],
