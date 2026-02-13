@@ -6,13 +6,11 @@ use App\Features\Auth\Models\User;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Features\User\Models\Scopes\UserScope;
 use Database\Factories\TodoFactory;
-use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
-#[ScopedBy([UserScope::class])]
 #[UseResourceCollection(TodoResourceCollection::class)]
 class Todo extends Model
 {
@@ -43,5 +41,10 @@ class Todo extends Model
     protected static function newFactory()
     {
         return TodoFactory::new();
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('user', new UserScope());
     }
 }

@@ -25,17 +25,14 @@ class TodoService
 
     public function getAll($filters = []): LengthAwarePaginator
     {
-        return auth()
-            ->user()
-            ->todos()
-            ->when($filters['status'] ?? null, fn($q, $status) => $q->where($status, true))
+        return Todo::when($filters['status'] ?? null, fn($q, $status) => $q->where($status, true))
             ->latest()
             ->paginate($filters['per_page'] ?? 5);
     }
 
     public function get(int $id): Todo
     {
-        $todo = auth()->user()->todos()->find($id);
+        $todo = Todo::find($id);
 
         if (!$todo) {
             throw new TodoNotFoundException();
@@ -89,8 +86,8 @@ class TodoService
 
     public function stats(): array
     {
-        $total = auth()->user()->todos()->count();
-        $completed = auth()->user()->todos()->where('completed', true)->count();
+        $total = Todo::count();
+        $completed = Todo::where('completed', true)->count();
 
         return [
             'total' => $total,
