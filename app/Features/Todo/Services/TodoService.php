@@ -38,6 +38,7 @@ class TodoService
 
         return $todo;
     }
+
     public function update(int $id, array $data): Todo
     {
         if (empty($data)) {
@@ -66,5 +67,18 @@ class TodoService
         }
 
         return $isDeleted;
+    }
+
+    public function toggle(int $id): Todo
+    {
+        $todo = $this->get($id);
+
+        $isUpdated = $todo->update(['completed' => !$todo->completed]);
+
+        if (!$isUpdated) {
+            throw new TodoUpdateException();
+        }
+
+        return $todo;
     }
 }
