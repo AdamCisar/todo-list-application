@@ -4,10 +4,11 @@ namespace App\Http\Responses;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiResponse
 {
-    public static function success(string $message, ?array $data, int $status): JsonResponse
+    public static function success(string $message, ?array $data, int $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'success' => true,

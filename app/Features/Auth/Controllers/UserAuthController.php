@@ -81,8 +81,7 @@ class UserAuthController extends Controller
             [
                 'user' => $user,
                 'access_token' => $token,
-            ],
-            Response::HTTP_OK
+            ]
         );
     }
 
@@ -92,8 +91,7 @@ class UserAuthController extends Controller
 
         return ApiResponse::success(
             'User logged out successfully!',
-            null,
-            Response::HTTP_OK
+            null
         );
     }
 

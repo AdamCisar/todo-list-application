@@ -8,7 +8,6 @@ use App\Features\Todo\Services\TodoService;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\ApiResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends Controller
 {
@@ -66,7 +65,7 @@ class TodoController extends Controller
     {
         $this->service->delete($id);
 
-        return ApiResponse::success('Todo deleted successfully.', null, Response::HTTP_OK);
+        return ApiResponse::success('Todo deleted successfully.', null);
     }
 
     public function toggle(int $id): JsonResponse
@@ -74,5 +73,12 @@ class TodoController extends Controller
         $todo = $this->service->toggle($id);
 
         return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo toggled successfully.');
+    }
+
+    public function stats(): JsonResponse
+    {
+        $stats = $this->service->stats();
+
+        return ApiResponse::success('Todo stats retrieved successfully.', $stats);
     }
 }

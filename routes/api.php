@@ -29,4 +29,6 @@ Route::middleware('auth:sanctum')
         Route::apiResource('todos', TodoController::class)->except(['update']);
         Route::put('todos/{todo}', [TodoController::class, 'update']);
         Route::patch('todos/{todo}/toggle', [TodoController::class, 'toggle']);
+
+        Route::get('todos/stats', [TodoController::class, 'stats']);
     });

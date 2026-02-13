@@ -86,4 +86,16 @@ class TodoService
 
         return $todo;
     }
+
+    public function stats(): array
+    {
+        $total = auth()->user()->todos()->count();
+        $completed = auth()->user()->todos()->where('completed', true)->count();
+
+        return [
+            'total' => $total,
+            'completed' => $completed,
+            'pending' => $total - $completed,
+        ];
+    }
 }
