@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Features\Todo\Services;
+namespace App\Features\Todo\Repositories;
 
 use App\Features\Auth\Models\User;
 use App\Features\Todo\Exceptions\TodoCreateException;
@@ -11,7 +11,7 @@ use App\Features\Todo\Models\Todo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\QueryException;
 
-class TodoService
+class TodoRepository
 {
     public function __construct(
         private Todo $todo,
