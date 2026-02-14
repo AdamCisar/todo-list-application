@@ -15,9 +15,6 @@ class TodoController extends Controller
         private TodoService $service
     ) {}
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(TodoRequest $request): JsonResponse
     {
         $todos = $this->service->getAll($request->validated());
@@ -25,9 +22,6 @@ class TodoController extends Controller
         return TodoResourceCollection::make($todos)->withSuccess('Todos retrieved successfully.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(TodoRequest $request): JsonResponse
     {
         $todo = $this->service->create($request->validated());
@@ -35,12 +29,6 @@ class TodoController extends Controller
         return TodoResourceCollection::make(collect([$todo]))->withCreated('Todo created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * Using scoped route model binding to bypass the global scope and retrieve the todo by its ID, regardless of the authenticated user.
-     * This allows us to ensure that the todo exists and belongs to the authenticated user, while still adhering to the global scope defined in the model.
-     */
     public function show(int $id): JsonResponse
     {
         $todo = $this->service->get($id);
@@ -48,9 +36,6 @@ class TodoController extends Controller
         return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo retrieved successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(TodoRequest $request, int $id): JsonResponse
     {
         $todo = $this->service->update($id, $request->validated());
@@ -58,9 +43,6 @@ class TodoController extends Controller
         return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(int $id): JsonResponse
     {
         $this->service->delete($id);
