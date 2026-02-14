@@ -1,0 +1,458 @@
+{
+  "info": {
+    "_postman_id": "df94994b-a379-46d9-ac30-365eccf6a8ad",
+    "name": "Todo List Application",
+    "description": "This API provides todo management functionality with support for CRUD operations, filtering, searching, and statistics. All endpoints require authentication via bearer token.\n\n### Request headers\n\n- `Accept: application/json` – Client expects a JSON response.\n    \n- `Content-Type: application/json` - Server expects a JSON request.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24202465"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{auth}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{auth}}",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.sk\",\r\n    \"password\": \"test123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/{{auth}}/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{auth}}",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"test@test.sk\",\r\n    \"password\": \"test123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/{{auth}}/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{auth}}",
+                "register"
+              ]
+            },
+            "description": "## Register\n\nThis endpoint registers a new user account.\n\n**Method:** `POST`  \n**URL:** `{{base_url}}/{{auth}}/register`\n\n### Request headers\n\n- `Accept: application/json` – Client expects a JSON response.\n    \n\n### Request body (JSON)\n\n\\`\\`\\`json  \n{  \n\"name\": \"string\",  \n\"email\": \"string\",  \n\"password\": \"string\"  \n}"
+          },
+          "response": []
+        }
+      ],
+      "description": "All endpoints besides login/register require authentication using a bearer token in the Authorization header: Authorization: Bearer { your token }",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "exec": [
+              "if (pm.response.code === 200) {\r",
+              "    let response = pm.response.json();\r",
+              "\r",
+              "    if (response?.data?.access_token) {\r",
+              "        pm.collectionVariables.set(\"access_token\", response.data.access_token);\r",
+              "    }\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Todo",
+      "item": [
+        {
+          "name": "Get all todos (with pagination)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}?page=1&per_page=2&status=completed",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "2"
+                },
+                {
+                  "key": "status",
+                  "value": "completed"
+                }
+              ]
+            },
+            "description": "### Description\n\nRetrieve a paginated list of todo items that match an optional completion status filter.\n\nThis request calls the todos listing endpoint using environment variables for the base URL and resource path:\n\n- `{{base_url}}` – The API base URL\n    \n- `{{todos}}` – The todos resource path segment (e.g., `todos`), combined with `{{base_url}}` to form the full endpoint.\n    \n\nFinal URL shape:  \n`{{base_url}}/{{todos}}?page=1&per_page=2&status=completed`\n\n### Pagination\n\nPagination is controlled via query parameters:\n\n- `page` (number, required) – 1-based index of the results page to fetch. Example: `1`.\n    \n- `per_page` (number, required) – Number of todos returned per page. Example: `2`.\n    \n\nThe server is expected to return only the items for the requested page, based on `per_page`. Typical responses also include pagination metadata (e.g., total count, current page, total pages, etc.)\n\n### Status Filter\n\nFilter todos by completion status using the `status` query parameter:\n\n- `status` (string, optional but used in this request) – Filter value (currently supports only `completed`)\n    \n\n### Expected Response\n\n- **Status code**: `200 OK` on success.\n    \n- **Body format**: JSON array or object containing a list of todo items.\n    \n- **Content type**: `application/json` (requested via the `Accept` header).\n    \n\n### Example Usage\n\n1. Ensure your active environment defines:\n    \n    - `base_url` (e.g., `https://api.example.com`)\n        \n    - `todos` (e.g., `todos`)\n        \n2. Open this request and verify the query parameters:\n    \n    - `page=1`\n        \n    - `per_page=2`\n        \n    - `status=completed`\n        \n3. Send the request to retrieve the first page of completed todos, two items per page."
+          },
+          "response": []
+        },
+        {
+          "name": "Create new todo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"first todo title\",\r\n    \"description\": \"first todo description\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/{{todos}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single todo",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update todo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \" first todo title updated\",\r\n    \"description\": \"first todo description updated\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete todo",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle todo completion status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/1/toggle",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "1",
+                "toggle"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{todos}}/search/first todo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{todos}}",
+                "search",
+                "first todo"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/api"
+    },
+    {
+      "key": "auth",
+      "value": "auth",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "todos",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
