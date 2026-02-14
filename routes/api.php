@@ -23,12 +23,20 @@ Route::prefix('auth')->group(function () {
 
 /** TODOS */
 Route::middleware('auth:sanctum')
-    ->where(['todo' => '[1-9]+'])
+    ->prefix('todos')
     ->group(function () {
-        // We need to exclude the 'update' method from the apiResource because we want to handle it separately to allow both PUT and PATCH methods. Otherwise the apiResource will create a route for PATCH /todos/{todo}
-        Route::apiResource('todos', TodoController::class)->except(['update']);
-        Route::put('todos/{todo}', [TodoController::class, 'update']);
-        Route::patch('todos/{todo}/toggle', [TodoController::class, 'toggle']);
+        Route::prefix('{todo}')
+            ->where(['todo' => '[1-9]+'])
+            ->group(function () {
+                Route::get('/', [TodoController::class, 'show']);
+                Route::put('/', [TodoController::class, 'update']);
+                Route::delete('/', [TodoController::class, 'destroy']);
+                Route::patch('/toggle', [TodoController::class, 'toggle']);
+            });
 
-        Route::get('todos/stats', [TodoController::class, 'stats']);
+        Route::get('/', [TodoController::class, 'index']);
+        Route::post('/', [TodoController::class, 'store']);
+
+        Route::get('stats', [TodoController::class, 'stats']);
+        Route::get('search/{query}', [TodoController::class, 'search']);
     });

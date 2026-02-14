@@ -9,6 +9,7 @@ use App\Features\Todo\Exceptions\TodoNotFoundException;
 use App\Features\Todo\Exceptions\TodoUpdateException;
 use App\Features\Todo\Models\Todo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 
@@ -106,5 +107,15 @@ class TodoRepository
             'completed' => $completed,
             'pending' => $total - $completed,
         ];
+    }
+
+    public function search(string $query): Collection
+    {
+        return $this
+            ->todo
+            ->where('title', 'like', "%{$query}%")
+            ->orWhere('description', 'like', "%{$query}%")
+            ->limit(10)
+            ->get();
     }
 }

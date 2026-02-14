@@ -63,4 +63,11 @@ class TodoController extends Controller
 
         return ApiResponse::success('Todo stats retrieved successfully.', $stats);
     }
+
+    public function search(string $query): JsonResponse
+    {
+        $todos = $this->repository->search($query);
+
+        return TodoResourceCollection::make($todos)->withSuccess('Todo search results retrieved successfully.');
+    }
 }
