@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 
-class ResourceCollectionProvicder extends ServiceProvider
+class ResourceProvicder extends ServiceProvider
 {
     /**
      * Register services.
@@ -29,7 +29,7 @@ class ResourceCollectionProvicder extends ServiceProvider
         ];
 
         foreach ($crudResponses as $type => $config) {
-            ResourceCollection::macro('with' . ucfirst($type), function (?string $message = null) use ($type, $config) {
+            JsonResource::macro('with' . ucfirst($type), function (?string $message = null) use ($type, $config) {
                 return $this->additional([
                     'success' => $type !== 'error',
                     'message' => $message ?? $config['message'],

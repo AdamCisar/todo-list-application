@@ -313,6 +313,7 @@
 
   **API Architecture**
   - Create `UserResource` for consistent user data serialization
+  - `TodoResource` could be improved by allowing to return only the data needed for each endpoint
   - Implement API versioning (e.g., `/api/v1/todos`)
 
   **Code Organization**

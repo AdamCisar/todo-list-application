@@ -4,6 +4,7 @@ namespace App\Features\Todo\Controllers;
 
 use App\Features\Todo\Repositories\TodoRepository;
 use App\Features\Todo\Requests\TodoRequest;
+use App\Features\Todo\Resources\TodoResource;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\ApiResponse;
@@ -33,14 +34,14 @@ class TodoController extends Controller
     {
         $todo = $this->repository->get($id);
 
-        return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo retrieved successfully.');
+        return new TodoResource($todo)->withSuccess('Todo retrieved successfully.');
     }
 
     public function update(TodoRequest $request, int $id): JsonResponse
     {
         $todo = $this->repository->update($id, $request->validated());
 
-        return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo updated successfully.');
+        return new TodoResource($todo)->withSuccess('Todo updated successfully.');
     }
 
     public function destroy(int $id): JsonResponse
@@ -54,7 +55,7 @@ class TodoController extends Controller
     {
         $todo = $this->repository->toggle($id);
 
-        return TodoResourceCollection::make(collect([$todo]))->withSuccess('Todo toggled successfully.');
+        return new TodoResource($todo)->withSuccess('Todo toggled successfully.');
     }
 
     public function stats(): JsonResponse
