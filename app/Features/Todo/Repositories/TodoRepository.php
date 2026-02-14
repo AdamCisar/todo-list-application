@@ -10,18 +10,22 @@ use App\Features\Todo\Exceptions\TodoUpdateException;
 use App\Features\Todo\Models\Todo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class TodoRepository
 {
+    private User $currentUser;
+
     public function __construct(
         private Todo $todo,
-        private User $user
-    ) {}
+    ) {
+        $this->currentUser = Auth::user();
+    }
 
     public function create(array $data): Todo
     {
         try {
-            $todo = $this->user->todos()->create($data);
+            $todo = $this->currentUser->todos()->create($data);
         } catch (QueryException $e) {
             throw new TodoCreateException();
         }
