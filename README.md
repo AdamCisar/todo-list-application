@@ -1,130 +1,342 @@
-<p align="center">
-  <h1 align="center" style="color: #FF2D20; font-size: 48px; font-weight: bold;">
-    📝 Todo List Application
+<div style="
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    text-align: center;
+">
+  <h1 style="
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+  ">
+    Todo List Application ✒️
   </h1>
-</p>
+  <p style="
+      font-size: 0.95rem;
+      color: #666666;
+  ">
+    Simple, lightweight task manager
+  </p>
+</div>
 
-<details>
-<summary><b>SETUP</b></summary>
+
+<div style="
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    ">
+
+<details 
+  style="
+    border:1px solid #ccc;
+    border-radius:8px;
+  "
+>
+  <summary 
+    style="
+      list-style:none;
+      padding:1rem;
+      cursor:pointer;
+      width:100%;
+    "
+  >
+    <b>Overview</b>
+  </summary>
+
+<div style="padding: 0 2rem 2rem;">
+
+  ### Description
+  A RESTful Todo API built with Laravel 12, featuring user authentication via Laravel Sanctum and a clean, repository-based architecture. The application provides complete CRUD operations for todo items with advanced features like filtering, search, statistics, and task completion tracking. The entire development environment runs in Docker containers via Laravel Sail for consistent, portable development.
+
+  ### Technologies Used
+
+  **Backend Framework & Core**
+  - PHP 8.2+ (currently 8.5.2)
+  - Laravel Framework 12.0
+  - Laravel Sanctum 4.0 (API Authentication)
+
+  **Database & ORM**
+  - MySQL 8.4
+  - Eloquent ORM
+  - Database migrations & seeders
+
+  **Development Tools**
+  - Laravel Sail 1.53 (Docker development environment)
+  - Adminer (Web-based database management)
+
+  **Testing & Quality**
+  - Pest Laravel
+
+  **DevOps & Infrastructure**
+  - Docker & Docker Compose
+
+  ### Project Structure
+  ```
+  app/
+  ├── Features/
+  │   ├── Auth/
+  │   │   └── Controllers/AuthController.php
+  │   └── Todo/
+  │       ├── Models/Todo.php
+  │       ├── Repositories/TodoRepository.php
+  │       ├── Exceptions/
+  │       │   ├── TodoNotFoundException.php
+  │       │   ├── TodoCreateException.php
+  │       │   ├── TodoUpdateException.php
+  │       │   └── TodoDeleteException.php
+  │       └── Resources/
+  │           └── (API Resources)
+  docker-compose.yml
+  vendor/laravel/sail/
+  ```
+
+  **Architecture Pattern**: Feature-based organization may feel like overhead at first, but as the project grows and becomes more complex, it makes navigation significantly easier
+
+  ### Docker Services
+
+  **Application Container (sail-8.5/app)**
+  - PHP 8.5 runtime
+  - Laravel application server
+  - Exposed ports: 80 (HTTP)
+
+  **MySQL 8.4**
+  - Primary database service
+  - Exposed port: 3306
+  - Timezone: Europe/Bratislava
+
+  **Adminer**
+  - Web-based database management UI
+  - Accessible at: `http://localhost:8082`
+  - Theme: pepa-linha
+  - No additional configuration needed
+  </div>
+</details>
+
+<details 
+  style="
+    border:1px solid #ccc;
+    border-radius:8px;
+  "
+>
+  <summary 
+    style="
+      list-style:none;
+      padding:1rem;
+      cursor:pointer;
+      width:100%;
+    "
+  >
+  <b>Setup</b>
+</summary>
 
 
-### Installation
+<div style="padding: 0 2rem 2rem;">
 
-A Laravel-based TODO list application with Docker support via Laravel Sail.
+  ### Installation
 
-## Prerequisites
+  A Laravel-based TODO list application with Docker support via Laravel Sail.
 
-- Git
-- Docker Desktop
-- WSL 2 (for Windows users)
-- Composer
+  ## Prerequisites
 
-## Setup Instructions
+  - Git
+  - Docker Desktop
+  - WSL 2 (for Windows users)
+  - Composer
 
-### 1. Clone the Repository
+  ## Setup Instructions
 
-```bash
-git clone <repository-url>
-cd todo-list-application
-```
+  ### 1. Clone the Repository
 
-### 2. Install Dependencies
+  ```bash
+  git clone <repository-url>
+  cd todo-list-application
+  ```
 
-Open your terminal (CMD, Git Bash, or your preferred terminal) in the project folder and run:
+  ### 2. Install Dependencies
 
-```bash
-composer install
-```
+  Open your terminal (CMD, Git Bash, or your preferred terminal) in the project folder and run:
 
-### 3. Configure Environment
+  ```bash
+  composer install
+  ```
 
-Create a `.env` file from the example:
+  ### 3. Configure Environment
 
-```bash
-# Windows (CMD)
-copy .env.example .env
+  Create a `.env` file from the example:
 
-# Linux/Mac/Git Bash
-cp .env.example .env
-```
+  ```bash
+  # Windows (CMD)
+  copy .env.example .env
 
-### 4. Generate Application Key
+  # Linux/Mac/Git Bash
+  cp .env.example .env
+  ```
 
-```bash
-php artisan key:generate
-```
+  ### 4. Generate Application Key
 
-### 5. Configure Database
+  ```bash
+  php artisan key:generate
+  ```
 
-Open the `.env` file and update the database variables if needed, especially fill the password:
+  ### 5. Configure Database
 
-```env
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=todo_list_application
-DB_USERNAME=sail
-DB_PASSWORD=password
-```
+  Open the `.env` file and update the database variables if needed, especially fill the password:
 
-### 6. Start Docker Environment
+  ```env
+  DB_CONNECTION=mysql
+  DB_HOST=mysql
+  DB_PORT=3306
+  DB_DATABASE=todo_list_application
+  DB_USERNAME=sail
+  DB_PASSWORD=password
+  ```
 
-1. Start Docker Desktop
-2. Open WSL command line as administrator
-3. Navigate to your project folder from the Linux environment:
+  ### 6. Start Docker Environment
 
-```bash
-cd /mnt/c/Users/Adam/Desktop/todo-list-application
-```
+  1. Start Docker Desktop
+  2. Open WSL command line as administrator
+  3. Navigate to your project folder from the Linux environment:
 
-*(Adjust the path to match your project location)*
+  ```bash
+  cd /mnt/c/Users/Adam/Desktop/todo-list-application
+  ```
 
-### 7. Configure Sail Alias (Optional)
+  *(Adjust the path to match your project location)*
 
-To simplify commands, create an alias:
+  ### 7. Configure Sail Alias (Optional)
 
-```bash
-alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
-```
+  To simplify commands, create an alias:
 
-Now you can use `sail` instead of `./vendor/bin/sail`.
+  ```bash
+  alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+  ```
 
-### 8. Start the Application
+  Now you can use `sail` instead of `./vendor/bin/sail`.
 
-```bash
-sail up -d
-```
+  ### 8. Start the Application
 
-### 9. Run Database Migrations
+  ```bash
+  sail up -d
+  ```
 
-```bash
-sail artisan migrate
-```
+  ### 9. Run Database Migrations
 
-This will create the `todo_list_application` database and run all migrations.
+  ```bash
+  sail artisan migrate
+  ```
 
-### 10. Access the Database (Optional)
+  This will create the `todo_list_application` database and run all migrations.
 
-**Via Adminer:**
-- URL: http://localhost:8082/
-- System: MySQL
-- Server: mysql
-- Username: sail
-- Password: password
-- Database: todo_list_application
+  ### 10. Access the Database (Optional)
 
-Alternatively, you can use your IDE's database integration tools.
+  **Via Adminer:**
+  - URL: http://localhost:8082/
+  - System: MySQL
+  - Server: mysql
+  - Username: sail
+  - Password: password
+  - Database: todo_list_application
 
-### 11. Test the API
+  Alternatively, you can use your IDE's database integration tools.
 
-Import the included Postman collection and:
-1. Register a new user
-2. Test the available endpoints
+  ### 11. Test the API
 
-## Troubleshooting
+  Import the included Postman collection and:
+  1. Register a new user
+  2. Test the available endpoints
 
-- Ensure Docker Desktop is running before executing `sail up` and you have enabled WSL in docker Settings->Resources->WSL integration
-- Make sure ports 80, 3306, and 8082 are not in use by other applications
-- If migrations fail, verify your database credentials in `.env`
+  ## Troubleshooting
+
+  - Ensure Docker Desktop is running before executing `sail up` and you have enabled WSL in docker Settings->Resources->WSL integration
+  - Make sure ports 80, 3306, and 8082 are not in use by other applications
+  - If migrations fail, verify your database credentials in `.env`
+  </div>
 
 </details>
+
+<details 
+  style="
+    border:1px solid #ccc;
+    border-radius:8px;
+  "
+>
+  <summary 
+    style="
+      list-style:none;
+      padding:1rem;
+      cursor:pointer;
+      width:100%;
+    "
+  ><b>Design Decisions & Trade-offs</b></summary>
+<br>
+
+<div style="padding: 0 2rem 2rem;">
+
+  **Repository for todo model**
+  - **Decision**: Implemented repository layer (`TodoRepository`) to extract database operations to single class
+  - **Trade-off**: Model is already implementing repository so it might seems like overengeneering
+  - **Benefit**: Database operations are handled in single class where we can add logic for complex queries /throw exceptions etc.
+
+  **Custom Exception Handling**
+  - **Decision**: Domain-specific exceptions (`TodoNotFoundException`, `TodoCreateException`, etc.)
+  - **Trade-off**: More classes to maintain
+  - **Benefit**: Clear, actionable and granular error handling and responses for API consumers
+
+  **Manual Model Finding**
+  - **Decision**: Avoided Route Model Binding, using manual `find()` in repository
+  - **Trade-off**: More verbose code
+  - **Benefit**: Better control over error handling, especially in cases where the model cannot be found. More flexible in the future.
+
+  **Docker-based Development**
+  - **Decision**: Laravel Sail for containerized environment
+  - **Trade-off**: Docker overhead vs environment consistency
+  - **Benefit**: Eliminates "works on my machine" issues, includes all services (MySQL, Adminer)
+  </div>
+</details>
+
+<details 
+  style="
+    border:1px solid #ccc;
+    border-radius:8px;
+  "
+>
+  <summary 
+    style="
+      list-style:none;
+      padding:1rem;
+      cursor:pointer;
+      width:100%;
+    "
+  ><b>Future Improvements</b></summary>
+<br>
+
+<div style="padding: 0 2rem 2rem;">
+
+  **API Architecture**
+  - Create `UserResource` for consistent user data serialization
+  - Implement API versioning (e.g., `/api/v1/todos`)
+
+  **Code Organization**
+  - Split `routes/api.php` into feature-specific route files (e.g., `routes/api/todos.php`, `routes/api/auth.php`)
+  - Add IDE autocomplete support for custom `ResourceCollection` macro methods
+
+  **Security & Performance**
+  - Custom rate limiter for login route combining email + IP address (prevent credential stuffing)
+  - Only for consideration - implement full-text search using MySQL full-text indexes or Laravel Scout instead of LIKE queries
+  - Add caching for frequently accessed endpoints using Redis/Valkey
+
+  **Developer Experience**
+  - Integrate API documentation tool (e.g., Scribe, Apiary, or OpenAPI/Swagger)
+  - Implement Sentry for database error tracking and query logging
+
+  **Testing & Quality**
+  - Increase test coverage
+  - Implement CI/CD pipeline with automated testing (GitHub Actions/Gitlab CI/CD)
+
+  </div>
+
+</details>
+
+</div>
