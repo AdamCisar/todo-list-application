@@ -2,6 +2,7 @@
 
 namespace App\Features\Todo\Services;
 
+use App\Features\Auth\Models\User;
 use App\Features\Todo\Exceptions\TodoCreateException;
 use App\Features\Todo\Exceptions\TodoDeleteException;
 use App\Features\Todo\Exceptions\TodoNotFoundException;
@@ -12,10 +13,15 @@ use Illuminate\Database\QueryException;
 
 class TodoService
 {
+    public function __construct(
+        private Todo $todo,
+        private User $user
+    ) {}
+
     public function create(array $data): Todo
     {
         try {
-            $todo = auth()->user()->todos()->create($data);
+            $todo = $this->user->todos()->create($data);
         } catch (QueryException $e) {
             throw new TodoCreateException();
         }
@@ -25,14 +31,16 @@ class TodoService
 
     public function getAll($filters = []): LengthAwarePaginator
     {
-        return Todo::when($filters['status'] ?? null, fn($q, $status) => $q->where($status, true))
+        return $this
+            ->todo
+            ->when($filters['status'] ?? null, fn($q, $status) => $q->where($status, true))
             ->latest()
             ->paginate($filters['per_page'] ?? 5);
     }
 
     public function get(int $id): Todo
     {
-        $todo = Todo::find($id);
+        $todo = $this->todo->find($id);
 
         if (!$todo) {
             throw new TodoNotFoundException();
@@ -86,8 +94,8 @@ class TodoService
 
     public function stats(): array
     {
-        $total = Todo::count();
-        $completed = Todo::where('completed', true)->count();
+        $total = $this->todo->count();
+        $completed = $this->todo->where('completed', true)->count();
 
         return [
             'total' => $total,
