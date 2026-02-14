@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Features\Auth\Models\User;
 use App\Features\Todo\Models\Todo;
+use App\Features\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Features\Auth\Models;
+namespace App\Features\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Features\Todo\Models\Todo;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,12 +52,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function todos()
+    public function todos(): HasMany
     {
         return $this->hasMany(Todo::class);
     }
 
-    protected static function newFactory()
+    protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
     }

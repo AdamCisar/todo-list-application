@@ -2,9 +2,9 @@
 
 namespace App\Features\Todo\Models;
 
-use App\Features\Auth\Models\User;
 use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Features\User\Models\Scopes\UserScope;
+use App\Features\User\Models\User;
 use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +40,7 @@ class Todo extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected static function newFactory()
+    protected static function newFactory(): TodoFactory
     {
         return TodoFactory::new();
     }

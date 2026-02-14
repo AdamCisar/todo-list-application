@@ -2,12 +2,12 @@
 
 namespace App\Features\Todo\Repositories;
 
-use App\Features\Auth\Models\User;
 use App\Features\Todo\Exceptions\TodoCreateException;
 use App\Features\Todo\Exceptions\TodoDeleteException;
 use App\Features\Todo\Exceptions\TodoNotFoundException;
 use App\Features\Todo\Exceptions\TodoUpdateException;
 use App\Features\Todo\Models\Todo;
+use App\Features\User\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
