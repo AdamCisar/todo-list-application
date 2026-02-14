@@ -3,8 +3,7 @@
     "_postman_id": "df94994b-a379-46d9-ac30-365eccf6a8ad",
     "name": "Todo List Application",
     "description": "This API provides todo management functionality with support for CRUD operations, filtering, searching, and statistics. All endpoints require authentication via bearer token.\n\n### Request headers\n\n- `Accept: application/json` – Client expects a JSON response.\n    \n- `Content-Type: application/json` - Server expects a JSON request.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "24202465"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -12,6 +11,7 @@
       "item": [
         {
           "name": "Logout",
+          "id": "aa39ce58-926d-4abb-8d27-c896725b74bc",
           "request": {
             "method": "POST",
             "header": [
@@ -36,19 +36,7 @@
         },
         {
           "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
+          "id": "eb888d19-a403-4aa3-844e-6f7a4b768770",
           "request": {
             "auth": {
               "type": "noauth"
@@ -85,19 +73,7 @@
         },
         {
           "name": "Register",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
+          "id": "989655bc-a67a-4743-8262-71fb2b64e6b7",
           "request": {
             "auth": {
               "type": "noauth"
@@ -134,6 +110,7 @@
           "response": []
         }
       ],
+      "id": "891c4a29-3136-4f92-a60f-889b7b463509",
       "description": "All endpoints besides login/register require authentication using a bearer token in the Authorization header: Authorization: Bearer { your token }",
       "event": [
         {
@@ -170,6 +147,7 @@
       "item": [
         {
           "name": "Get all todos (with pagination)",
+          "id": "e0faed80-1512-4ac5-a192-05bbe4b64c08",
           "request": {
             "method": "GET",
             "header": [
@@ -208,6 +186,7 @@
         },
         {
           "name": "Create new todo",
+          "id": "d2e56013-88b4-4932-9c0b-65c926237157",
           "request": {
             "method": "POST",
             "header": [
@@ -240,6 +219,7 @@
         },
         {
           "name": "Get single todo",
+          "id": "598d028c-03ae-4cfd-8910-77016fb8915d",
           "request": {
             "method": "GET",
             "header": [
@@ -272,6 +252,7 @@
         },
         {
           "name": "Update todo",
+          "id": "f3de674d-499b-4585-8d83-ad4f1d490e12",
           "request": {
             "method": "PUT",
             "header": [
@@ -305,6 +286,7 @@
         },
         {
           "name": "Delete todo",
+          "id": "56f6851a-02b5-47fd-be16-643a749bf6c6",
           "request": {
             "method": "DELETE",
             "header": [
@@ -329,6 +311,7 @@
         },
         {
           "name": "Toggle todo completion status",
+          "id": "e2a7a957-2fc2-44c7-9596-4e37181bb867",
           "request": {
             "method": "PATCH",
             "header": [
@@ -354,6 +337,7 @@
         },
         {
           "name": "Stats",
+          "id": "414ca4df-df82-4af5-8d5e-868aee5ce5ae",
           "request": {
             "method": "GET",
             "header": [
@@ -378,6 +362,7 @@
         },
         {
           "name": "Search",
+          "id": "82adc08e-2e36-4327-a364-20cd8c5ab67b",
           "request": {
             "method": "GET",
             "header": [
@@ -401,7 +386,8 @@
           },
           "response": []
         }
-      ]
+      ],
+      "id": "66b89b20-7756-4257-8e57-ef8d466634c3"
     }
   ],
   "auth": {
@@ -414,42 +400,26 @@
       }
     ]
   },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
   "variable": [
     {
+      "id": "3d44dc8d-784b-4d00-9547-2c3a7ddfddfc",
       "key": "base_url",
       "value": "http://localhost/api"
     },
     {
+      "id": "5f779f51-f5c1-435f-baa4-421887fd4f6c",
       "key": "auth",
       "value": "auth",
       "type": "string"
     },
     {
+      "id": "06785163-6eac-4eeb-aa31-0678ee20acf7",
       "key": "access_token",
       "value": "",
       "type": "string"
     },
     {
+      "id": "ba8c8e00-32d4-407d-a724-a592aefa1f9c",
       "key": "todos",
       "value": "",
       "type": "default"
