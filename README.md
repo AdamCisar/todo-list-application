@@ -104,13 +104,10 @@
   **MySQL 8.4**
   - Primary database service
   - Exposed port: 3306
-  - Timezone: Europe/Bratislava
 
   **Adminer**
   - Web-based database management UI
-  - Accessible at: `http://localhost:8082`
-  - Theme: pepa-linha
-  - No additional configuration needed
+  - Exposed port: 8082
   </div>
 </details>
 
@@ -291,8 +288,8 @@
 
   **Docker-based Development**
   - **Decision**: Laravel Sail for containerized environment
-  - **Trade-off**: Docker overhead vs environment consistency
-  - **Benefit**: Eliminates "works on my machine" issues, includes all services (MySQL, Adminer)
+  - **Trade-off**: Docker overhead
+  - **Benefit**: Eliminates "works on my machine" issues, includes all services (MySQL, Adminer) so its easier to deploy (environment consistency)
   </div>
 </details>
 
@@ -339,4 +336,27 @@
 
 </details>
 
+<details 
+  style="
+    border:1px solid #ccc;
+    border-radius:8px;
+  "
+>
+  <summary 
+    style="
+      list-style:none;
+      padding:1rem;
+      cursor:pointer;
+      width:100%;
+    "
+  ><b>API Documentation</b></summary>
+<br>
+
+<div style="padding: 0 2rem 2rem;">
+
+  **Included in the project: `postman/collections/todo-list-application.postman_collection.json`**
+
+  </div>
+
+</details>
 </div>
