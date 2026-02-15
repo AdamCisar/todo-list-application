@@ -4,8 +4,6 @@ namespace App\Features\Todo\Controllers;
 
 use App\Features\Todo\Repositories\TodoRepository;
 use App\Features\Todo\Requests\TodoRequest;
-use App\Features\Todo\Resources\TodoResource;
-use App\Features\Todo\Resources\TodoResourceCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\ApiResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,28 +18,28 @@ class TodoController extends Controller
     {
         $todos = $this->repository->getAll($request->validated());
 
-        return TodoResourceCollection::make($todos)->withSuccess('Todos retrieved successfully.');
+        return $todos->toResourceCollection()->withSuccess('Todos retrieved successfully.');
     }
 
     public function store(TodoRequest $request): JsonResponse
     {
         $todo = $this->repository->create($request->validated());
 
-        return TodoResourceCollection::make(collect([$todo]))->withCreated('Todo created successfully.');
+        return $todo->toResource()->withCreated('Todo created successfully.');
     }
 
     public function show(int $id): JsonResponse
     {
         $todo = $this->repository->get($id);
 
-        return new TodoResource($todo)->withSuccess('Todo retrieved successfully.');
+        return $todo->toResource()->withSuccess('Todo retrieved successfully.');
     }
 
     public function update(TodoRequest $request, int $id): JsonResponse
     {
         $todo = $this->repository->update($id, $request->validated());
 
-        return new TodoResource($todo)->withSuccess('Todo updated successfully.');
+        return $todo->toResource()->withSuccess('Todo updated successfully.');
     }
 
     public function destroy(int $id): JsonResponse
@@ -55,7 +53,7 @@ class TodoController extends Controller
     {
         $todo = $this->repository->toggle($id);
 
-        return new TodoResource($todo)->withSuccess('Todo toggled successfully.');
+        return $todo->toResource()->withSuccess('Todo toggled successfully.');
     }
 
     public function stats(): JsonResponse
@@ -69,6 +67,6 @@ class TodoController extends Controller
     {
         $todos = $this->repository->search($query);
 
-        return TodoResourceCollection::make($todos)->withSuccess('Todo search results retrieved successfully.');
+        return $todos->toResourceCollection()->withSuccess('Todo search results retrieved successfully.');
     }
 }

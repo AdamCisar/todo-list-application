@@ -66,8 +66,8 @@
   - Laravel Sail 1.53 (Docker development environment)
   - Adminer (Web-based database management)
 
-  **Testing & Quality**
-  - Pest Laravel
+  **Testing**
+  - PHPUnit
 
   **DevOps & Infrastructure**
   - Docker & Docker Compose
@@ -315,6 +315,7 @@
   - Create `UserResource` for consistent user data serialization
   - `TodoResource` could be improved by allowing to return only the data needed for each endpoint
   - Implement API versioning (e.g., `/api/v1/todos`)
+  - Add support for arrays in POST and PUT methods
 
   **Code Organization**
   - Split `routes/api.php` into feature-specific route files (e.g., `routes/api/todos.php`, `routes/api/auth.php`)

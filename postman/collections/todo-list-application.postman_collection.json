@@ -216,7 +216,7 @@
                 "{{todos}}"
               ]
             },
-            "description": "Create new todo with the data specified in request body\n\n##### Required fields\n\n- title\n    \n\n#### Response\n\n``` json\n{\n    \"data\": [\n        {\n            \"description\": \"first todo description\",\n            \"completed\": false,\n            \"title\": \"first todo title\",\n            \"user_id\": 2,\n            \"updated_at\": \"2026-02-14T17:05:24.000000Z\",\n            \"created_at\": \"2026-02-14T17:05:24.000000Z\",\n            \"id\": 17\n        }\n    ],\n    \"success\": true,\n    \"message\": \"Todo created successfully.\"\n}\n\n ```"
+            "description": "Create new todo with the data specified in request body\n\n##### Required fields\n\n- title\n    \n\n#### Response\n\n``` json\n{\n    \"data\": {\n        \"description\": \"first todo description\",\n        \"completed\": false,\n        \"title\": \"first todo title\",\n        \"user_id\": 2,\n        \"updated_at\": \"2026-02-15T09:24:06.000000Z\",\n        \"created_at\": \"2026-02-15T09:24:06.000000Z\",\n        \"id\": 23\n    },\n    \"success\": true,\n    \"message\": \"Todo created successfully.\"\n}\n\n ```"
           },
           "response": []
         },
