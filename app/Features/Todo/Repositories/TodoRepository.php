@@ -25,6 +25,10 @@ class TodoRepository
 
     public function create(array $data): Todo
     {
+        if (empty($data['title']) || !is_string($data['title'])) {
+            throw new TodoCreateException('Title is required.');
+        }
+
         try {
             $todo = $this->currentUser->todos()->create($data);
         } catch (QueryException $e) {
