@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "df94994b-a379-46d9-ac30-365eccf6a8ad",
     "name": "Todo List Application",
-    "description": "This API provides todo management functionality with support for CRUD operations, filtering, searching, and statistics.\n\n### Request headers\n\n- `Accept: application/json` – Client expects a JSON response.\n    \n- `Content-Type: application/json` - Server expects a JSON request.\n    \n- `Authentication` - all endpoints, except **Login** and **Register**, require a Bearer token.\n    \n\n### Response structure\n\n#### Success\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Successful message\",\n    \"data\": {...} // can be null\n}\n\n ```\n\n`data` can be an object when there is content, or `null` if there is no data.\n\n#### Error\n\n``` json\n{\n{\n    \"success\": false,\n    \"error\": \"Error message\",\n    \"errors\": {...} // can be null\n}\n\n ```\n\n`data` can be an object when there is content, or `null` if there is no data.",
+    "description": "This API provides todo management functionality with support for CRUD operations, filtering, searching, and statistics.\n\n### Request headers\n\n- `Accept: application/json` – Client expects a JSON response.\n    \n- `Content-Type: application/json` - Server expects a JSON request.\n    \n- `Authentication` - all endpoints, except **Login** and **Register**, require a Bearer token.\n    \n\n### Authentication\n\n- All endpoints besides `login/register` require authentication using a bearer token in the `Authorization` header:\n    \n    - `Authorization: Bearer {acces_token}`\n        \n\n### Response structure\n\n#### Success\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Successful message\",\n    \"data\": {...} // can be null\n}\n\n ```\n\n`data` can be an object when there is content, or `null` if there is no data.\n\n#### Error\n\n``` json\n{\n{\n    \"success\": false,\n    \"error\": \"Error message\",\n    \"errors\": {...} // can be null\n}\n\n ```\n\n`data` can be an object when there is content, or `null` if there is no data.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -113,7 +113,6 @@
         }
       ],
       "id": "891c4a29-3136-4f92-a60f-889b7b463509",
-      "description": "All endpoints besides login/register require authentication using a bearer token in the Authorization header: Authorization: Bearer { your token }",
       "event": [
         {
           "listen": "prerequest",
@@ -411,22 +410,22 @@
   },
   "variable": [
     {
-      "id": "6d13c371-405b-4e89-83b6-e1a386787cd1",
+      "id": "6da9cea6-603d-4f24-99d1-49904c8cdb5e",
       "key": "base_url",
       "value": "http://localhost/api"
     },
     {
-      "id": "a27ce8c0-13b7-4582-9531-33171d417a75",
+      "id": "69d43081-2740-47fb-8458-ca8c2080e76d",
       "key": "auth",
       "value": "auth"
     },
     {
-      "id": "deb59c2b-d952-4e67-ac90-d073792d54a6",
+      "id": "c7669812-6243-4877-a146-7cecfa87e800",
       "key": "access_token",
       "value": ""
     },
     {
-      "id": "0ef2356d-df93-460c-95bf-524142cf265b",
+      "id": "77a9dae5-3d9b-4d12-a01c-1ce726bf5709",
       "key": "todos",
       "value": "todos"
     }
